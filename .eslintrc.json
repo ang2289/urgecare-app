@@ -1,0 +1,19 @@
+{
+  "plugins": ["jsx-a11y"],
+  "extends": ["plugin:jsx-a11y/recommended"],
+  "rules": {
+    "jsx-a11y/label-has-associated-control": ["warn", { "depth": 3 }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@/storage/chantStorage",
+            "importNames": ["listMantras"],
+            "message": "請從 @/db/repo 匯入 listMantras"
+          }
+        ]
+      }
+    ]
+  }
+}

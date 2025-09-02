@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Noto Sans TC',
+    'Microsoft JhengHei',
+    'Segoe UI',
+    Arial,
+    sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  background: #0f172a;
+  color: #f9fafb;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}

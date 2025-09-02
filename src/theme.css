@@ -1,0 +1,515 @@
+/* =====================================================================
+   UrgeCare theme.css — 安全基線（Light 預設）
+   - 白底主題（清晰、易讀）
+   - 卡片 / 按鈕 / 輸入框 / 導覽列 樣式
+   - 強制覆蓋殘留深色 inline style（救火用）
+   - 本檔可獨立運作；不依賴其他變數檔
+   ===================================================================== */
+
+/* ===== 變數（Light） ===== */
+:root {
+  --app-bg: #f6f7fb;
+  --text: #111827;
+  --muted: #6b7280;
+
+  --surface: #ffffff;
+  --border: #e5e7eb;
+
+  --input: #ffffff;
+  --input-border: #d1d5db;
+
+  --primary: #3b82f6;
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  --content-max: 1100px;
+  --control-h: 44px;
+  --gap: 12px;
+
+  --font-base: 16px;
+  --line: 1.65;
+}
+
+/* ===== 全局 ===== */
+html,
+body {
+  background: var(--app-bg) !important;
+  color: var(--text) !important;
+  color-scheme: light !important;
+  font-size: var(--font-base);
+  line-height: var(--line);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* ===== 版心容器 ===== */
+.container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ===== 卡片 ===== */
+.card {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+  padding: 16px !important;
+}
+.card + .card {
+  margin-top: 16px;
+}
+/* ---- 支持牆卡片固定排版 ---- */
+.support-card .support-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px !important;
+}
+.support-card img {
+  display: block;
+}
+
+/* ===== 列表與每筆項目（給日記/待辦） ===== */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+.item {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  padding: 12px 14px !important;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap);
+  align-items: center;
+}
+/* ---- Todos 兩欄平均（桌機 ≥820px 時），行動裝置自動單欄 ---- */
+.todo-list {
+  display: grid !important;
+  grid-template-columns: 1fr; /* mobile 預設單欄 */
+  gap: var(--gap);
+}
+@media (min-width: 820px) {
+  .todo-list {
+    grid-template-columns: repeat(2, 1fr); /* 桌機兩欄平均 */
+  }
+}
+.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== 文字與標題 ===== */
+.title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 10px 0 6px;
+}
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 8px 0;
+}
+.helper {
+  color: var(--muted);
+}
+
+/* ===== 輸入元件 ===== */
+input,
+textarea,
+select {
+  background: var(--input) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: var(--radius) !important;
+  height: var(--control-h);
+  padding: 0 12px;
+  width: 100%;
+}
+textarea {
+  min-height: 140px;
+  padding: 10px 12px;
+  height: auto; /* 讓 textarea 不被 control-h 限制 */
+}
+
+/* ===== 按鈕 ===== */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-h);
+  padding: 0 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.06s ease, filter 0.12s ease, box-shadow 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button:active {
+  transform: translateY(1px) scale(0.98);
+  filter: brightness(0.96);
+}
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+  border-color: var(--primary);
+}
+
+/* 兼容既有 class 名稱 */
+.btn-primary,
+.pill-btn.is-active {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #fff !important;
+  font-weight: 800;
+}
+.btn-success {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+  color: #fff !important;
+}
+.btn-danger {
+  background: var(--danger) !important;
+  border-color: var(--danger) !important;
+  color: #fff !important;
+}
+
+/* ===== 導覽列（置頂 + 白底 + 模糊） ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid var(--border) !important;
+  backdrop-filter: blur(4px);
+}
+.uc-nav-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+.uc-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+
+/* 導覽列按鈕（含 PillButton） */
+.navbar button {
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.navbar button[aria-current='page'],
+.navbar .is-active {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #fff !important;
+  font-weight: 800;
+}
+
+/* ===== 區塊排版工具 ===== */
+.row {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-3 {
+  gap: var(--gap);
+}
+
+/* =====================================================================
+   🚑 核彈覆蓋：把殘留的深色 inline style 全部壓回白底（救火用）
+   如果之後要做暗色主題/切換，再把這段改為條件式即可
+   ===================================================================== */
+[style*='#0b1020'],
+[style*='#0f172a'],
+[style*='#111827'],
+[style*='rgb(11, 16, 32)'],
+[style*='rgb(15, 23, 42)'],
+[style*='rgb(17, 24, 39)'] {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: var(--border) !important;
+}
+
+/* 列表容器內的直屬 div 也白底（避免外層白、內層還是深色） */
+.card > div,
+.list > div {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: var(--border) !important;
+}
+/* ==== SOS 勾選列對齊（不動 TSX，純 CSS 自動排版） =================== */
+/* 1) 任何「卡片」內，若直屬子元素包含 checkbox / switch / aria-pressed 按鈕，改成：左文字、右勾選 */
+.card
+  > *:has(input[type='checkbox'], button[role='switch'], button[aria-pressed], .toggle, .check) {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px 16px;
+}
+/* 2) 讓勾選/切換靠右對齊 */
+.card
+  > *:has(input[type='checkbox'], button[role='switch'], button[aria-pressed], .toggle, .check)
+  > :is(input[type='checkbox'], button[role='switch'], button[aria-pressed], .toggle, .check) {
+  justify-self: end;
+  white-space: nowrap;
+}
+/* 3) 行內有「說明小字」 */
+.card
+  > *:has(input[type='checkbox'], button[role='switch'], button[aria-pressed], .toggle, .check)
+  > :is(.helper, small, .hint, .note) {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  margin-top: 2px;
+}
+/* 4) 勾選框給固定尺寸 */
+.card input[type='checkbox'] {
+  inline-size: 20px;
+  block-size: 20px;
+}
+/* 5) 行內段落邊距收斂 */
+.card p {
+  margin: 0.25rem 0;
+}
+
+/* === Buttons: 不換行 + 一致寬高 === */
+button,
+.btn,
+.pill-btn,
+.navbar button {
+  white-space: nowrap; /* 文字不換行 */
+  min-width: 92px; /* 讓「匯出 CSV」「重新設定」等不會擠到折行 */
+  height: var(--control-h); /* 與全站一致高度 */
+  line-height: 1; /* 垂直置中更穩定 */
+  gap: 0.4rem; /* 圖示與文字間距 */
+}
+
+/* 行動裝置時，允許較窄但仍不斷行 */
+@media (max-width: 420px) {
+  button,
+  .btn,
+  .pill-btn,
+  .navbar button {
+    min-width: 80px;
+    font-size: 0.95rem;
+  }
+}
+
+/* === 操作列：讓按鈕換行但每顆不折行 === */
+.actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* 整排可換行 */
+  justify-content: center;
+  margin-top: 8px;
+}
+.actions-row > * {
+  white-space: nowrap; /* 每顆不折行 */
+}
+
+/* === 膠囊分頁（導覽列）也不折行 === */
+.uc-tabs button,
+.pill-btn {
+  white-space: nowrap;
+}
+
+/* === SOS 選項列（勾選 + 說明文字）排版更整齊 === */
+/* 若你的 SOS 選項容器 class 不同，把 .sos-options 換成實際 class */
+.sos-options {
+  display: grid;
+  grid-template-columns: 1fr auto; /* 左文字、右勾選 */
+  align-items: center;
+  gap: 8px 16px;
+}
+.sos-options .option-line {
+  display: contents; /* 讓子元素直接進網格 */
+}
+.sos-options .option-text {
+  color: var(--text);
+}
+.sos-options .option-check {
+  justify-self: end;
+}
+
+/* 修復 ChantCounter 相關樣式 */
+.chant-counter-flex {
+  margin-top: 12px;
+}
+
+.chant-counter-card {
+  max-width: 420px;
+  text-align: center;
+}
+
+.chant-counter-helper-large {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.chant-counter-flex-center {
+  margin-bottom: 12px;
+}
+
+.chant-counter-img {
+  background: #111827;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.chant-counter-helper {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.chant-counter-helper-small {
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* 將 ChantCounter.tsx 中的內嵌樣式移至 theme.css */
+.chant-counter-section-title {
+  margin-top: 16px;
+}
+.photo-card {
+  background: #111827;
+  border-radius: 8px;
+  padding: 8px;
+}
+.photo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+.helper-center {
+  text-align: center;
+  margin-top: 4px;
+}
+.helper-center-margin {
+  text-align: center;
+  margin-top: 6px;
+}
+.card-center {
+  max-width: 420px;
+  text-align: center;
+}
+.helper-large {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.flex-wrap-justify {
+  margin-bottom: 12px;
+}
+.photo-small {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* 更新 ChantCounter 的樣式以符合要求 */
+.chant-counter-stats {
+  font-size: 24px; /* 調整字型大小，適合老人觀看 */
+  margin-bottom: 16px;
+}
+.chant-counter-stat {
+  margin-bottom: 8px;
+}
+.chant-counter-actions {
+  display: flex;
+  gap: 12px; /* 增加按鈕間距 */
+  margin-top: 16px;
+}
+.chant-counter-actions .btn {
+  padding: 12px 24px; /* 調整按鈕大小 */
+}
+
+/* 放在 theme.css 最後 */
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+  filter: brightness(0.96);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.helper-small {
+  font-size: 12px;
+}
+.item-bold {
+  font-weight: 700;
+}
+
+// ===== Accessible large controls for seniors =====
+.btn-xl{
+  padding: 0.9rem 1.25rem;
+  font-size: 1.125rem;        /* text-lg */
+  line-height: 1.4;
+  border-radius: 0.9rem;
+  min-height: 48px;           /* ≥ 48px touch target */
+}
+
+.input-lg, .textarea-lg{
+  font-size: 1.125rem;        /* text-lg */
+  padding: 0.9rem 1rem;
+  border-radius: 0.75rem;
+}
+
+.btn{
+  outline: none;
+}
+.btn:focus-visible, .input:focus-visible, .textarea:focus-visible{
+  outline: 3px solid #2563eb55;   /* 明顯焦點框 */
+  outline-offset: 2px;
+}
+
+/* 提升對比 */
+.btn-success{ background:#16a34a; color:#fff; }
+.btn-success:hover{ background:#15803d; }
+.btn-danger{ background:#dc2626; color:#fff; }
+.btn-danger:hover{ background:#b91c1c; }
+.btn-primary{ background:#2563eb; color:#fff; }
+.btn-primary:hover{ background:#1d4ed8; }
+
+/* 讓分隔區塊更透氣 */
+.section-title{ margin-bottom: .75rem; }
+.card{ padding: 1.25rem; }
+.actions-row{ gap: .75rem; }

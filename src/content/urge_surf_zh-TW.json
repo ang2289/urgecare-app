@@ -1,0 +1,68 @@
+{
+  "id": "urge-surf-v1",
+  "locale": "zh-TW",
+  "title": "衝動浪頂 3 分鐘引導",
+  "durationSeconds": 180,
+  "steps": [
+    {
+      "t": 0,
+      "type": "text",
+      "title": "現在有衝動，沒關係",
+      "body": "先深呼吸三次。吸氣 4 秒，停 2 秒，吐氣 6 秒。你正在做出選擇。"
+    },
+    {
+      "t": 20,
+      "type": "checkin",
+      "title": "給衝動打分",
+      "body": "此刻的強度 0–10？",
+      "input": { "kind": "slider", "min": 0, "max": 10, "key": "intensity_start" }
+    },
+    {
+      "t": 40,
+      "type": "text",
+      "title": "命名這股感覺",
+      "body": "把它當成『一股浪』而不是『我』。心裡默念：我注意到一股浪。"
+    },
+    {
+      "t": 60,
+      "type": "body-scan",
+      "title": "身體在哪裡有感覺？",
+      "body": "掃描頭/胸/腹/手/腳，找到最明顯的區域，維持呼吸。",
+      "input": {
+        "kind": "select",
+        "options": ["頭", "胸", "腹", "手", "腳", "不明顯"],
+        "key": "body_focus"
+      }
+    },
+    {
+      "t": 85,
+      "type": "text",
+      "title": "讓浪自己起落",
+      "body": "不壓、不推、不追。只看著它起、停、落。把注意力放在吐氣。"
+    },
+    {
+      "t": 110,
+      "type": "action",
+      "title": "替代行動（選一個，做 30–60 秒）",
+      "body": "A. 冷水洗臉  B. 離開房間  C. 伏地挺身 10 下  D. 走動 20 步",
+      "input": {
+        "kind": "select",
+        "options": ["冷水洗臉", "離開房間", "伏地挺身", "走動"],
+        "key": "alt_action"
+      }
+    },
+    {
+      "t": 150,
+      "type": "checkin",
+      "title": "再次量測",
+      "body": "現在的衝動強度 0–10？",
+      "input": { "kind": "slider", "min": 0, "max": 10, "key": "intensity_end" }
+    },
+    {
+      "t": 170,
+      "type": "text",
+      "title": "你做到了",
+      "body": "你成功度過一波。這次的經驗會讓下一次更容易。按完成記錄。"
+    }
+  ]
+}

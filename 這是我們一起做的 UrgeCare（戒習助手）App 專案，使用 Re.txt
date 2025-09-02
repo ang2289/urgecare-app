@@ -1,0 +1,54 @@
+這是我們一起做的 UrgeCare（戒習助手）App 專案，使用 React + Vite + TypeScript + Capacitor（Android）。
+
+目前已完成的功能與檔案：
+- App.tsx：分頁切換（SOS 預設首頁、Diary、Todos、Settings、SupportWall）
+- SOS.tsx：延遲倒數計時，結束時觸發震動＋通知，並自動寫入日記＋待辦（含 10 分鐘去重），有替代行為列表。
+- Diary.tsx：日記功能（新增、搜尋、語音輸入、編輯、刪除、CSV 匯出含 BOM），語音避免重複輸入。
+- Todos.tsx：待辦功能（新增、完成勾選、刪除、清空），支援 storage.ts 本地儲存，跨頁切換後資料不會消失。
+- Settings.tsx：可設定 SOS 預設分鐘數、冷卻分鐘數。
+- SupportWall.tsx：支持牆，可上傳照片（已改用 Capacitor Filesystem 儲存），顯示家人或伴侶照片。
+- storage.ts：統一封裝日記、待辦、設定的 localStorage，包含 addEntrySmart / addTodoSmart（冷卻去重）。
+- reset.css / theme.css：大字體、高對比、卡片風格、圓角、間距一致。
+- index.html / main.tsx 已設定好 Vite + React 啟動。
+- 已修正 StrictMode 導致的 Todos 無限更新迴圈。
+
+注意事項：
+- CSV 匯出在 Excel 打開不會亂碼（UTF-8 BOM 已加）。
+- Android 原生需要權限：通知權限、檔案存取權限。
+- 開發測試時 favicon.ico 需放在 public/ 避免 404。
+
+=== 下一步規劃清單 ===
+1. **SOS 延伸**  
+   - 增加「誦念計數器」：使用者可選經文/咒語/祈禱文，每次點按計數，顯示今日累計與全部總計。  
+   - 時間到觸發時自動加總，並彈出鼓勵卡片。  
+   - 提供「清除今日數量」「清除總計」功能。
+
+2. **SupportWall 支持牆**  
+   - 完善多張照片的展示（grid + 大圖預覽）。  
+   - 允許刪除或重新排序照片。  
+   - 支持照片文字標籤，例如「家人」、「伴侶」。
+
+3. **Todos 待辦**  
+   - 增加分類（例如：日常、運動、宗教、其他）。  
+   - 支持排序（依新增時間、完成狀態）。  
+
+4. **Diary 日記**  
+   - 支援圖片/檔案附件（透過 Capacitor Filesystem）。  
+   - 增加「統計」功能，例如每天日記篇數。  
+
+5. **設定頁 Settings**  
+   - 增加 UI 主題切換（亮色/深色）。  
+   - 支援資料匯入/還原（讀 CSV 寫回）。  
+
+6. **封裝與上架**  
+   - 準備 Android 打包流程（簽章、權限、版本號、aab 產出）。  
+   - 加入 @capacitor/assets 設定 App 圖示與啟動畫面。
+
+
+把 誦念計數器（咒語計數） 的設計稿（UI + state 管理 + storage 結構）先規劃好，讓它可以成為下一頁.
+
+之前規劃還有心得牆及許願牆.
+
+可否再加上排行榜,就是延遲記錄的排行榜,可在設定裡設定使用者要用要參加,參加的就列入排行榜裡.這樣是否可讓使用者有成就感及感受不止他才有這種困擾.
+
+支持牆還是沒有看到也.

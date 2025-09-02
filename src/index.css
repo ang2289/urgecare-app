@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@layer components {
+  /* 工具列：可換行、間距舒服 */
+  .uc-toolbar { @apply flex items-center flex-wrap justify-center gap-3; }
+
+  /* 大顆按鈕基底 */
+  .uc-btn { @apply px-5 py-3 text-base font-semibold rounded-2xl shadow-sm transition active:scale-[0.98]; }
+  .uc-btn-primary { @apply bg-green-600 hover:bg-green-700 text-white; }
+  .uc-btn-warn { @apply bg-red-600 hover:bg-red-700 text-white; }
+  .uc-btn-ghost { @apply bg-gray-100 hover:bg-gray-200 text-gray-800; }
+
+  /* + / - 圓角膠囊按鈕（大觸控） */
+  .uc-chip { @apply rounded-2xl bg-gray-100 hover:bg-gray-200 shadow-sm; }
+
+  /* 大號輸入框（不會被擠扁） */
+  .uc-input-lg { @apply w-32 min-w-[8rem] text-center text-lg px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500; }
+
+  /* 卡片與區塊 */
+  .uc-card { @apply bg-white rounded-3xl shadow-sm ring-1 ring-gray-200; }
+  .uc-section { @apply p-4; }
+}
+
+@layer utilities {
+  /* 全站統一的居中寬度容器 */
+  .uc-page { max-width: 72rem; /* ≈ 1152px */ margin-left: auto; margin-right: auto; }
+  .uc-section { border-radius: 1.5rem; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); outline: 1px solid rgb(229 231 235); }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 長輩友善大按鈕 */
+.btn-xl {
+  font-size: 1.125rem;      /* text-lg */
+  line-height: 1.75rem;
+  padding: 0.75rem 1rem;    /* p-3 px-4 */
+  border-radius: 0.75rem;   /* rounded-xl */
+}
+
+/* --- 顶部導覽 tabs：不再擠字、藍底更大 --- */
+.uc-tabs {
+  display: flex;
+  align-items: center;
+  gap: 14px;                 /* 按鈕間距 */
+  padding: 6px 8px;          /* 整排的內距 */
+  overflow-x: auto;
+  -ms-overflow-style: none;  /* 隱藏捲軸（IE/Edge） */
+  scrollbar-width: none;     /* 隱藏捲軸（Firefox） */
+}
+.uc-tabs::-webkit-scrollbar { display: none; } /* 隱藏捲軸（Chrome） */
+
+.uc-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;        /* ⬅️ 讓「藍底」比文字更大（可再加到 20px） */
+  border-radius: 9999px;     /* 膠囊 */
+  font-size: 18px;           /* 文字大小 */
+  font-weight: 600;
+  line-height: 1;            /* 不要被行高撐開 */
+  white-space: nowrap;       /* 不換行 */
+  border: 1px solid transparent;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+/* 非作用中的按鈕（灰底） */
+.uc-tab--inactive {
+  background: #f3f4f6;       /* 灰 100 */
+  color: #1f2937;            /* 灰 800 */
+}
+.uc-tab--inactive:hover {
+  background: #e5e7eb;       /* 灰 200 */
+}
+
+/* 作用中的按鈕（藍底） */
+.uc-tab--active {
+  background: #4f46e5;       /* indigo-600 */
+  color: #fff;
+}
+
+/* 內容區容器，確保置中 */
+.uc-page {
+  max-width: 72rem;          /* 1152px ≈ max-w-6xl */
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
