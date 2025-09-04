@@ -28,25 +28,35 @@
     "eslint.alwaysShowStatus": true,
     "files.eol": "\n",
     "git.confirmSync": false,
-  
-    "defaultModel": "gpt-4o",
+    "defaultModel": "auto",
     "chat": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 4000
     },
     "autocomplete": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 2000
     },
     "refactor": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 4000
     },
     "terminal": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 3000
     },
     "testGeneration": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 4000
     },
     "commitMessage": {
-      "model": "gpt-4o"
+      "model": "auto",
+      "maxContextTokens": 2000
+    },
+    "context": {
+      "includeOpenTabs": false,
+      "includeGitHistory": false,
+      "includeLargeFiles": false
     }
   }
   
