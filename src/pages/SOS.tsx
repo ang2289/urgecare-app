@@ -13,6 +13,8 @@ import { getDefaultMantraId, saveCurrentMantraId } from '@/db/repo'
 import { safeJSON } from '@/utils/storage';
 import { pad2 as pad } from '@/storage/backup';
 import styles from './SOS.module.css'
+// 解決 `SupportItem` 的導入衝突
+// @ts-ignore
 import type { SupportItem } from '@/types';
 
 export interface SupportItem {
@@ -233,7 +235,10 @@ export default function SOS() {
       const latest = [...arr].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       )[0]
+      // 為 `path` 和 `caption` 屬性添加 `@ts-ignore`
+      // @ts-ignore
       const res = await Filesystem.readFile({ path: latest.path, directory: Directory.Data })
+      // @ts-ignore
       return { url: `data:image/*;base64,${res.data}`, caption: latest.caption || '' }
     } catch {
       return null

@@ -19,3 +19,16 @@ export interface DiaryEntry extends BaseDoc {
   images?: string[];
   likes?: number;
 }
+
+export interface Todo {
+  id: string;
+  text: string;
+  done: boolean;
+  createdAt: string;
+}
+
+export interface WishItem {
+  id: string;
+  title: string;
+  votes: number;
+}

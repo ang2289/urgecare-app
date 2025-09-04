@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
 import { Share } from '@capacitor/share'
-import type { DiaryEntry } from '../types';
+import type { DiaryEntry } from '@/types';
 import { addEntry, loadEntries, saveEntries, updateEntry, removeEntry } from '../utils/storage'
 import { exportDiariesToCSV, downloadBlob } from '@/db/repo';
 

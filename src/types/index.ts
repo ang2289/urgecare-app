@@ -3,32 +3,49 @@ export interface BaseDoc {
   createdAt: string;
 }
 
-export type DiaryEntry = {
-  id: string;
-  createdAt: string;
-  text: string;
-};
-
-export interface SupportItem extends BaseDoc {
-  title: string;
-  content: string;
-  likes?: number;
-  path?: string; // 新增 path 屬性
-  caption?: string; // 新增 caption 屬性
+export interface DelayRecord {
+  id: string
+  occurredAt: string
+  timestamp: number
+  source: string
+  minutes: number
+  description: string
+  createdAt: string
 }
 
-export interface DelayRecord extends BaseDoc {
-  occurredAt: string; // 確保 occurredAt 是 ISO 字串
-  timestamp: number;
-  source: string;
-  minutes: number;
-  description?: string; // 新增描述屬性
+export interface WishItem {
+  id: string
+  createdAt: string
+  title?: string
+  text?: string
+  [key: string]: any
+}
+export type Wish = WishItem
+
+// 重新加入 interface 定義
+export interface SupportPhoto {
+  id: string
+  dataUrl: string
+  createdAt: string
+  title?: string
 }
 
-export interface WishItem extends BaseDoc {
-  text: string;
-  votes: number;
-  updatedAt?: string;
+
+
+// 確保所有定義都被正確匯出
+
+export interface SupportItem {
+  id: string
+  createdAt: string
+  text?: string
+  [key: string]: any
+}
+
+export interface DiaryEntry {
+  id: string
+  createdAt: string
+  text: string
+  [key: string]: any
 }
 
 // 確保 Todo 的匯出方式正確

@@ -1,0 +1,52 @@
+{
+    "allowlist": {
+      "commands": [
+        "npm run build",
+        "npm run dev",
+        "npm install",
+        "vite build",
+        "pnpm build",
+        "pnpm install",
+        "pnpm run dev"
+      ]
+    },
+    "skipConfirmation": true,
+    "editor": {
+      "formatOnSave": true,
+      "codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+      },
+      "inlineSuggest": {
+        "enabled": false
+      }
+    },
+    "telemetry": {
+      "telemetryLevel": "off"
+    },
+    "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "eslint.alwaysShowStatus": true,
+    "files.eol": "\n",
+    "git.confirmSync": false,
+  
+    "defaultModel": "gpt-4o",
+    "chat": {
+      "model": "gpt-4o"
+    },
+    "autocomplete": {
+      "model": "gpt-4o"
+    },
+    "refactor": {
+      "model": "gpt-4o"
+    },
+    "terminal": {
+      "model": "gpt-4o"
+    },
+    "testGeneration": {
+      "model": "gpt-4o"
+    },
+    "commitMessage": {
+      "model": "gpt-4o"
+    }
+  }
+  

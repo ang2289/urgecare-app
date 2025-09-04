@@ -1,5 +1,5 @@
 // src/utils/storage.ts
-import type { DiaryEntry, Todo } from '../types';
+import type { DiaryEntry, Todo } from '@/types';
 
 /* ========= 通用 ========= */
 export function safeJSON<T>(raw: string | null, fallback: T): T {

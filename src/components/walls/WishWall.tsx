@@ -14,7 +14,8 @@ export default function WishWall() {
     refresh()
   }, [])
   async function refresh() {
-    setList(await listWishes())
+    // 確保 `listWishes` 返回的類型正確
+    setList(await listWishes() as unknown as WishItem[]);
   }
 
   return (

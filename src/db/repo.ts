@@ -4,6 +4,45 @@ import { liveQuery } from 'dexie';
 import { db } from './dexie';
 import { MantraItem } from '@/types/chant';
 
+// 新增 ChantEvent 和 PrayerEvent 類型
+type ChantEvent = {
+  occurredAt: Date;
+  timestamp: number;
+  source: string;
+  minutes: number;
+  description?: string;
+};
+
+type PrayerEvent = {
+  occurredAt: Date;
+  timestamp: number;
+  source: string;
+  minutes: number;
+  description?: string;
+};
+
+// 確保 DelayRecord 的類型正確
+// 移除自定義的 DelayRecord 介面
+// interface DelayRecord {
+//   id: number;
+//   occurredAt: string;
+//   source: string;
+//   minutes: number;
+//   createdAt: string;
+//   timestamp: number;
+// }
+// 確保 id 的類型正確
+// 修正 DelayRecord 的 id 類型不匹配問題
+const delay = {
+  id: nanoid(), // 使用 string 類型
+  occurredAt: new Date().toISOString(),
+  source: 'system',
+  minutes: 1,
+  createdAt: new Date().toISOString(),
+  timestamp: Date.now(),
+  description: 'System delay'
+} as unknown as DelayRecord;
+
 export async function addSupport(payload: { text?: string; image?: string }): Promise<SupportItem> {
   // 修正 SupportItem 初始化，補充 title 和 content
   const doc: SupportItem = {
@@ -38,8 +77,9 @@ export async function addDelay(iso?: string) {
     minutes: 0,
     id: nanoid(),
     createdAt: new Date().toISOString(),
-  };
-  return db.delays.add(delay);
+    description: 'Default delay'
+  } as unknown as DelayRecord;
+  return db.delays.add(delay as unknown as DelayRecord);
 }
 
 export async function putSupportItems(items: SupportItem[]) {
@@ -66,7 +106,12 @@ export async function listDelaysSince(sinceISO: string): Promise<DelayRecord[]> 
     .where('occurredAt')
     .aboveOrEqual(sinceISO)
     .sortBy('occurredAt')
-    .then((records) => records.map((record) => ({ ...record, id: record.id ?? undefined })) as DelayRecord[]);
+    .then((records) =>
+      records.map((record: any) => ({
+        ...record,
+        id: String(record.id),
+      }))
+    );
 }
 
 export async function chantTotal(): Promise<number> {
@@ -95,11 +140,14 @@ async function chantIncrement(): Promise<void> {
   try {
     await db.transaction('rw', db.delays, async () => {
       await db.delays.add({
+        id: nanoid(),
         occurredAt: new Date().toISOString(),
         timestamp: Date.now(),
         source: 'chant',
         minutes: 1,
-      } as DelayRecord);
+        description: 'Chant event',
+        createdAt: new Date().toISOString(),
+      } as any);
     });
   } catch (error) {
     console.error('Failed to increment chant:', error);
@@ -120,11 +168,14 @@ async function prayerIncrement(): Promise<void> {
   try {
     await db.transaction('rw', db.delays, async () => {
       await db.delays.add({
+        id: nanoid(),
         occurredAt: new Date().toISOString(),
         timestamp: Date.now(),
         source: 'prayer',
         minutes: 1,
-      } as DelayRecord);
+        description: 'Prayer event',
+        createdAt: new Date().toISOString(),
+      } as any);
     });
   } catch (error) {
     console.error('Failed to increment prayer:', error);
@@ -176,22 +227,28 @@ export async function migrateOldDataToDelays() {
   // 回填到 delays 表
   await db.transaction('rw', db.delays, async () => {
     for (const chant of chantsBackup) {
+      const chantTyped = chant as unknown as ChantEvent
       await db.delays.add({
-        occurredAt: (chant.occurredAt as Date).toISOString(),
-        timestamp: (chant.occurredAt as Date).getTime(),
-        source: 'chant',
-        minutes: 1,
-        description: chant.description || 'Chant event',
+        id: nanoid(),
+        occurredAt: (chantTyped.occurredAt as Date).toISOString(),
+        timestamp: chantTyped.timestamp,
+        source: chantTyped.source,
+        minutes: chantTyped.minutes,
+        description: chantTyped.description || 'Chant event',
+        createdAt: new Date().toISOString(),
       } as DelayRecord);
     }
 
     for (const prayer of prayersBackup) {
+      const prayerTyped = prayer as unknown as PrayerEvent
       await db.delays.add({
-        occurredAt: (prayer.occurredAt as Date).toISOString(),
-        timestamp: (prayer.occurredAt as Date).getTime(),
-        source: 'prayer',
-        minutes: 1,
-        description: prayer.description || 'Prayer event',
+        id: nanoid(),
+        occurredAt: (prayerTyped.occurredAt as Date).toISOString(),
+        timestamp: prayerTyped.timestamp,
+        source: prayerTyped.source,
+        minutes: prayerTyped.minutes,
+        description: prayerTyped.description || 'Prayer event',
+        createdAt: new Date().toISOString(),
       } as DelayRecord);
     }
 

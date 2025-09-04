@@ -1,6 +1,22 @@
 import Dexie, { Table } from 'dexie';
 import { liveQuery } from 'dexie';
-import type { SupportItem, DiaryEntry, DelayRecord } from '@/types';
+import type { DelayRecord, WishItem, SupportItem, DiaryEntry } from '@/types';
+
+// 移除本地定義
+// interface DelayRecord {
+//   id: number;
+//   occurredAt: string;
+//   source: string;
+//   minutes: number;
+//   createdAt: string;
+//   timestamp: number;
+// }
+
+// 更新 delays 資料表的型別宣告
+export interface UrgeDB extends Dexie {
+  delays: Dexie.Table<DelayRecord, string>;
+  // 其他表維持不變
+}
 
 class UrgeCareDB extends Dexie {
   supports!: Table<SupportItem, string>;
@@ -19,7 +35,7 @@ class UrgeCareDB extends Dexie {
       // 主鍵 + 索引
       supports: 'id, createdAt',
       diary: 'id, createdAt',
-      delays: '++id, occurredAt, source', // ✅ db.delays: DelayRecord 表
+      delays: 'id, occurredAt, timestamp, source, minutes, createdAt', // ✅ db.delays: DelayRecord 表
       chants: '++id, description, occurredAt',
       prayers: '++id, description, occurredAt',
       journal: '++id, createdAt, text', // 新增 journal 表
@@ -38,7 +54,7 @@ class UrgeCareDB extends Dexie {
 export const db = new UrgeCareDB();
 
 // 方便外部一起匯入型別
-export type { SupportItem, DiaryEntry, DelayRecord };
+// export type { SupportItem, DiaryEntry };
 
 export const chantTotal$ = liveQuery(async () => {
   const total = await db.delays.where('source').equals('chant').count();
@@ -52,9 +68,9 @@ export const prayerTotal$ = liveQuery(async () => {
 
 export const recentDelays$ = liveQuery(async () => {
   const delays = await db.delays.orderBy('occurredAt').reverse().limit(10).toArray();
-  return delays.map((delay: DelayRecord) => ({
+  return delays.map((delay) => ({
     ...delay,
-    occurredAt: delay.occurredAt || new Date().toISOString(), // 確保 occurredAt 有預設值
+    occurredAt: (delay as any).occurredAt ?? new Date().toISOString(),
   }));
 });
 
@@ -229,3 +245,15 @@ export async function listJournal() {
     console.error('Error deleting or reinitializing database:', err);
   }
 })();
+
+// Define uid and nowISO functions
+function uid() {
+  return 'uid-' + Date.now();
+}
+
+function nowISO() {
+  return new Date().toISOString();
+}
+
+// Ensure uid and nowISO are exported
+export { uid, nowISO };

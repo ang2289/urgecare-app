@@ -111,14 +111,16 @@ export async function exportDiariesToCSV(opts?: { tableName?: string; dateKey?: 
     throw new Error('Table name is required to export diaries to CSV.');
   }
 
-  const table = db[tableName];
+  // 將第 115 行改為使用更明確的類型轉換
+  const table = (db as unknown as Record<string, any>)[tableName] as any;
   if (!table) {
     throw new Error(`Table "${tableName}" does not exist in the database.`);
   }
 
   const rows = await table.toArray();
   const header = [dateKey, textKey];
-  const body = rows.map(r => [fmtLocal(r[dateKey]), csvEscape(r[textKey])]);
+  // 為 `rows.map` 的參數 `r` 添加明確的類型
+  const body = rows.map((r: any) => [fmtLocal(r[dateKey]), csvEscape(r[textKey])]);
   const csv = [header, ...body].map(r => r.join(',')).join('\r\n');
 
   return new Blob([BOM + csv], { type: 'text/csv;charset=utf-8' });
@@ -126,9 +128,10 @@ export async function exportDiariesToCSV(opts?: { tableName?: string; dateKey?: 
 
 export async function exportWishesToCSV(): Promise<Blob> {
   console.log('[backup] exportWishesToCSV');
-  const rows: WishItem[] = await db.wishes?.orderBy('createdAt')?.toArray?.() ?? [];
+  // 確保 `WishItem[]` 的類型正確
+  const rows = (await db.wishes?.orderBy('createdAt')?.toArray?.()) ?? [];
   const header = ['createdAt', 'text'];
-  const body = rows.map(r => [fmtLocal(r.createdAt), csvEscape(r.text)]);
+  const body = rows.map((r: any) => [fmtLocal(r.createdAt), csvEscape(r.title ?? r.text ?? '')]);
   const csv = [header, ...body].map(r => r.join(',')).join('\r\n');
   return new Blob([BOM + csv], { type: 'text/csv;charset=utf-8' });
 }

@@ -1,6 +1,6 @@
 // src/pages/Todos.tsx
 import React, { useEffect, useRef, useState } from 'react'
-import type { Todo } from '../types'
+import type { Todo } from '@/types';
 import { loadTodos, saveTodos } from '../utils/storage'
 
 function hashJson(x: unknown) {

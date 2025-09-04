@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { db } from '../db'
 import { exportWishesToCSV, downloadBlob } from '@/db/repo'
-import type { WishItem } from '../types';
+import type { WishItem } from '@/types';
 
 type Wish = {
   id?: string

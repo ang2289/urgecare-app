@@ -96,6 +96,10 @@ export default function App() {
   <Route path="/support" element={<main className="mx-auto max-w-6xl px-4 md:px-6 py-6 md:py-10"><Support /></main>} />
   <Route path="*" element={<main className="mx-auto max-w-6xl px-4 md:px-6 py-6 md:py-10"><Page title="404 Not Found" /></main>} />
 </Routes>
+
+      <footer className="text-center py-4">
+        <a href="/privacy.html">隱私權政策</a>
+      </footer>
     </>
   );
 }

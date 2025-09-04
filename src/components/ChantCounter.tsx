@@ -18,6 +18,7 @@ type SupportPhoto = {
   // Native 專用：原始 file:// uri 與 path（刪除檔案用）
   nativeUri?: string
   nativePath?: string
+  title?: string
 }
 
 type Props = {
