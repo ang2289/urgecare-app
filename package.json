@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^5.0.0",
-    "@capacitor/core": "^5.0.0",
+    "@capacitor/core": "^5.7.8",
     "@capacitor/filesystem": "^5.2.2",
     "@capacitor/haptics": "^5.0.0",
     "@capacitor/local-notifications": "^5.0.0",
@@ -30,7 +30,7 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.0.0",
+    "@capacitor/cli": "^5.7.8",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
